@@ -19,7 +19,7 @@ const RouterPage = () => {
     const doSetIsLogin = (statusLogin) => {
         setCookies('isLogin', statusLogin, { path: '/' , maxAge: 60 * 60 * 24 * 30});
         if (statusLogin) {
-            navigate('/')
+            navigate('/to-do-app')
         }
     }
 
@@ -27,7 +27,7 @@ const RouterPage = () => {
         <Routes>
             <Route path='/login' element={<Login doSetIsLogin={doSetIsLogin}/>}/>
             <Route path='/todo-app' element={<ToDoApp/>}/>
-            <Route path='/' element={<ListApp/>}/>
+            <Route path='/to-do-app' element={<ListApp/>}/>
         </Routes>
     );
 }
