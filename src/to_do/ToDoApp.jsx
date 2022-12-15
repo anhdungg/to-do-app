@@ -11,8 +11,9 @@ const ToDoApp = () => {
     const [listTask, setListTask] = useState([]);
 
     useEffect(() => {
-        setListTask([...cookies.toDoListDB]);
-        // console.log(cookies.toDoListDB)
+        if (cookies.toDoListDB !== undefined) {
+            setListTask([...cookies.toDoListDB]);
+        }
     }, [])
 
     const doOpenAdd = (e) => {
