@@ -16,7 +16,7 @@ const Login = (props) => {
             setHeightMain(window.screen.height-300);
         });
         if (cookies.isLogin == 'true') {
-            navigate('/')
+            navigate('/to-do-app')
         }
     });
 

@@ -25,8 +25,8 @@ const RouterPage = () => {
 
     return (
         <Routes>
-            <Route path='/login' element={<Login doSetIsLogin={doSetIsLogin}/>}/>
-            <Route path='/todo-app' element={<ToDoApp/>}/>
+            <Route path='/to-do-app/login' element={<Login doSetIsLogin={doSetIsLogin}/>}/>
+            <Route path='/to-do-app/todo-app' element={<ToDoApp/>}/>
             <Route path='/to-do-app' element={<ListApp/>}/>
         </Routes>
     );
