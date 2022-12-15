@@ -12,7 +12,7 @@ const RouterPage = () => {
 
     useEffect (() => {
         if (cookies.isLogin != 'true') {
-            navigate('/login')
+            navigate('/to-do-app/login')
         }
     }, [])
 
