@@ -4,11 +4,13 @@ import { useCookies } from 'react-cookie';
 import Login from "../login/Login";
 import ListApp from '../list_app/ListApp';
 import ToDoApp from '../to_do/ToDoApp';
+import WeatherApp from '../weather_app/WeatherApp';
 
 const RouterPage = () => {
 
     const navigate = useNavigate();
     const [cookies, setCookies] = useCookies(['user'])
+    
 
     useEffect (() => {
         if (cookies.isLogin != 'true') {
@@ -28,6 +30,7 @@ const RouterPage = () => {
             <Route path='/to-do-app/login' element={<Login doSetIsLogin={doSetIsLogin}/>}/>
             <Route path='/to-do-app/todo-app' element={<ToDoApp/>}/>
             <Route path='/to-do-app' element={<ListApp/>}/>
+            <Route path='/to-do-app/weather-app' element={<WeatherApp/>}/>
         </Routes>
     );
 }

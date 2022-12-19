@@ -14,12 +14,21 @@ const ToDoApp = () => {
         if (cookies.toDoListDB !== undefined) {
             setListTask([...cookies.toDoListDB]);
         }
+        displayFullScreen(116);
+        let portrait = window.matchMedia("(orientation: portrait)");
+        portrait.addEventListener("change", function(e) {
+            displayFullScreen(70);
+        })
     }, [])
 
-    const doOpenAdd = (e) => {
+    const doOpenAdd = (idTask) => {
         if (!isOpenAddNew) {
             setIsOpenAddNew(true);
-        } else {
+            listTask.forEach((task) => {
+                task.statusEdit = false;
+            })
+            setListTask([...listTask]);
+        } else if (inputNameTask !== undefined && inputNameTask !== '') {
             listTask.push({
                 id: listTask.length,
                 name: inputNameTask,
@@ -30,6 +39,9 @@ const ToDoApp = () => {
             setIsOpenAddNew(false);
             setListTask([...listTask]);
             saveData(listTask);
+            displayFullScreen(120);
+        } else {
+            setIsOpenAddNew(false);
         }
     }
 
@@ -54,11 +66,13 @@ const ToDoApp = () => {
     }
 
     const doUpdateTask = (idTask) => {
-        listTask[idTask].name = inputNameTask;
-        listTask[idTask].statusEdit = false;
-        setInputNameTask('');
-        setListTask([...listTask]);
-        saveData(listTask);
+        if (inputNameTask !== undefined && inputNameTask !== '') {
+            listTask[idTask].name = inputNameTask;
+            listTask[idTask].statusEdit = false;
+            setInputNameTask('');
+            setListTask([...listTask]);
+            saveData(listTask);
+        }
     }
 
     const doDoneTask = (idTask) => {
@@ -73,9 +87,21 @@ const ToDoApp = () => {
             if (task.id != idTask){
                 temp.push(task);
             }
-        })
+        });
         setListTask([...temp]);
         saveData(temp);
+        displayFullScreen(0);
+    }
+
+    const displayFullScreen = (limit) => {
+        let heightScreen = window;
+        let heightMainPage = document.getElementById('main-page-to-do-app');
+        let heightMainCart = document.getElementById('list-task');
+        if (heightScreen.innerHeight - heightMainCart.offsetHeight >= limit) {
+            heightMainPage.style.height = '100vh';
+        } else {
+            heightMainPage.style.height = '';
+        }
     }
 
     const saveData = (data) => {
@@ -84,8 +110,8 @@ const ToDoApp = () => {
 
     return (
         <div className="body_todo_app">
-            <div className="container-fluid container-md pt-5 pb-5">
-                <div className="card rounded">
+            <div id='main-page-to-do-app' className="container-fluid container-md pt-5 pb-5">
+                <div id="list-task" className="card rounded">
                     <div className="header">
                         <img src={todo_image_background} alt="Todo App" className="card-img-top"/>
                         <div className="title__caption">
