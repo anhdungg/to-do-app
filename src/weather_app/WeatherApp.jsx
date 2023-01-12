@@ -5,8 +5,8 @@ import { faCloudShowersHeavy, faSun,
 import { useEffect, useState } from 'react'
 
 const WeatherApp = () => {
-    // const apiKeyBak = 'nyAOk4NQrrLkMG15wSeqUl4IwPC7xKQh';
-    const apiKey = 'BaUeEiQLPpOjdJxs8GeKnUxsC7X8ANPw';
+    const apiKey = 'nyAOk4NQrrLkMG15wSeqUl4IwPC7xKQh';
+    // const apiKeyBak = 'BaUeEiQLPpOjdJxs8GeKnUxsC7X8ANPw';
     const apiLocation = 'http://dataservice.accuweather.com/locations/v1/cities/autocomplete';
     const apiTemperature5Day = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/';
     const apiTemperature12Hour = 'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/';
@@ -35,7 +35,6 @@ const WeatherApp = () => {
              return result.json();
         })
         .then(result => {
-            // console.log(typeof(result));
             if (result.length === 0 && value !== '') {
                 result.push({name: `Không tìm thấy kết quả với từ khoá '${value}'`});
                 setIsNoResult(true);
@@ -66,17 +65,21 @@ const WeatherApp = () => {
                                 setLocationKey(item.Key);
                             }
                         });
-                        getTemperatureNow();
-                        getTemperature5Day();
-                        getTemperature12Hour();
+                        callAPI();
                     }
                 }
-                
             })
         }
         setIsHiddenResult(true);
     }
 
+    const callAPI = () => {
+        const interval = setInterval(() => {
+            getTemperatureNow();
+            getTemperature5Day();
+            getTemperature12Hour();
+        }, 1000 * 60 * 60)
+    }
     const getTemperatureNow = () => {
         let param = `?apikey=${apiKey}&language=vi`;
         fetch(apiTemperatureNow + locationKey + param)
@@ -109,7 +112,6 @@ const WeatherApp = () => {
         })
         .then(result => {
             setTemperature5Day(...[result.DailyForecasts]);
-            console.log(temperature5Day);
         },
         (error) => {
             setTemperature5Day([...[]]);
@@ -262,8 +264,8 @@ const WeatherApp = () => {
                                                         <div className={index == 0 ? 'carousel-item active' : 'carousel-item'} key={index}>
                                                             <div className="d-flex justify-content-around text-center mb-4 pb-3 pt-2">
                                                                 {
-                                                                    item.map((item) => (
-                                                                        <div className="flex-column">
+                                                                    item.map((item, index) => (
+                                                                        <div className="flex-column" key={index}>
                                                                             <p className="small"><strong>{convertFToC(item.Temperature.Value)}°C</strong></p>
                                                                             {
                                                                                 item.HasPrecipitation ?
