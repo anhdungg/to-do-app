@@ -176,9 +176,9 @@ const WeatherApp = () => {
     }
 
     const convertToStatusWeather = (value) => {
-        if (value < 6 || value == 14 || value == 17 || value == 21 || value == 30) {
+        if (value < 6 || value === 14 || value === 17 || value === 21 || value === 30) {
             return 1;
-        } else if (value == 6 || value == 7 || value == 8 || value == 11 || value == 16 || value == 20 || value == 23 || value == 31) {
+        } else if (value === 6 || value === 7 || value === 8 || value === 11 || value === 16 || value === 20 || value === 23 || value === 31) {
             return 2
         }
         return 3;
@@ -239,7 +239,7 @@ const WeatherApp = () => {
                         <div className="card mb-4" style={{"borderRadius": "25px"}}>
                             <div className="card-body p-4">
                                 {
-                                    temperature12Hour.length == 0 ?
+                                    temperature12Hour.length === 0 ?
                                         <div id="demo3" className="carousel slide" data-ride="carousel">
                                             <div className="carousel-inner">
                                                 <div className="carousel-item active">
@@ -261,7 +261,7 @@ const WeatherApp = () => {
                                             <div className="carousel-inner">
                                                 {
                                                     temperature12Hour.map((item, index) => (
-                                                        <div className={index == 0 ? 'carousel-item active' : 'carousel-item'} key={index}>
+                                                        <div className={index === 0 ? 'carousel-item active' : 'carousel-item'} key={index}>
                                                             <div className="d-flex justify-content-around text-center mb-4 pb-3 pt-2">
                                                                 {
                                                                     item.map((item, index) => (
@@ -313,7 +313,7 @@ const WeatherApp = () => {
                                         <div className="carousel-item active">
                                             <div className="d-flex justify-content-around text-center mb-4 pb-3 pt-2">
                                                 {
-                                                    temperature5Day.length == 0 ?
+                                                    temperature5Day.length === 0 ?
                                                         <div className="flex-column">
                                                             <p className="mb-0"><strong>Không có dữ liệu</strong></p>
                                                         </div>
@@ -326,10 +326,10 @@ const WeatherApp = () => {
                                                                     </strong>
                                                                 </p>
                                                                 {
-                                                                    convertToStatusWeather(item.Day.Icon) == 1 ?
+                                                                    convertToStatusWeather(item.Day.Icon) === 1 ?
                                                                     <FontAwesomeIcon icon={faSun} size='2x' className='mb-3' style={{"color": "#ddd"}} />
                                                                     : 
-                                                                        convertToStatusWeather(item.Day.Icon) == 2 ?
+                                                                        convertToStatusWeather(item.Day.Icon) === 2 ?
                                                                             <FontAwesomeIcon icon={faCloud} size='2x' className='mb-3' style={{"color": "#ddd"}} />
                                                                         :
                                                                             <FontAwesomeIcon icon={faCloudShowersHeavy} size='2x' className='mb-3' style={{"color": "#ddd"}} />
